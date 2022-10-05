@@ -1,0 +1,49 @@
+const { createPool, createConnection } = require('mysql');
+const ybs = require('./src/schedule');
+
+// const start = () => new ybs().schedule();
+// start();
+
+
+// const pool = createConnection({
+//     host: '43.205.237.248',
+//     user: 'jeeva',
+//     password: 'jjstyles@',
+//     database: 'youtube',
+//     insecureAuth: true
+// });
+
+// // console.log({ 'sssssssssssssssssss'});
+
+// pool.query(`select * from Title`, (err, res) => console.log(err));
+
+// pool.q
+
+
+// const a = () => pool.query(`select * from Title`, (err, res) => console.log(res));
+
+// a();
+
+
+// var con = createConnection({
+//     host: '43.205.237.248',
+//     user: 'jeeva',
+//     password: 'jjstyles@',
+//     database: 'youtube',
+//     // insecureAuth: false
+// });
+
+var con = createConnection({
+    host: '127.0.0.1',
+    user: 'root',
+    password: 'awdsawds',
+    database: 'youtube',
+    // insecureAuth: false
+});
+
+
+
+con.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
