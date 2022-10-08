@@ -12,11 +12,9 @@ class Web {
             const result = await axios.get(`${api}?${query}`);
             return result.data;
         } catch (error) {
-            console.log("API Call Error", error);
+            console.log("GET ERROR!", error);
         }
     };
 };
 
 module.exports = Web;
-
-// https://youtube.googleapis.com/youtube/v3/videos?maxResults:1,regionCode:IN,videoCategoryId:10,chart:mostPopular,part:snippet,contentDetails,statistics,status,key:AIzaSyDg08trhS610R1VeeJp4hyGMaBryjKS_3s

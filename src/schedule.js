@@ -1,31 +1,32 @@
-const axios = require('axios');
 const moment = require('moment/moment');
 const schedule = require('node-schedule');
 const youtube = require('./controller/youtube');
-const Db = require('./database/connection');
-const DbManager = require('./database/manager');
-
+const Mongo = require('./database/mongo/index');
+const { apiFormat } = require('./constant');
+const Mailer = require('./mailer');
 class ybs extends youtube {
     constructor() {
         super();
         this.scheduleTime = 1;
-        this.db = new Db;
-        // this.conn = new DbManager;
+        this.mongo = new Mongo;
+        this.cronRule = `15 * * * * *`;
     }
 
-    schedule() {
-        console.log("Started at: ", moment().format("DD MMM YYY h:mm:ss a"));
+    async schedule() {
+        console.log("Started at", moment().format(apiFormat));
 
-        const cronRule = `*/${this.scheduleTime} * * * *`;
+        // this.mongo.setTrending();
 
-        const startDB = this.db.start();
+        this.mongo.start();
 
-        // schedule.scheduleJob('todays-trending', cronRule, async () => {
-        //     this.getTodaysTrending();
-        // });
+        schedule.scheduleJob('todays-trending', this.cronRule, async () => {
+            const todaysTrending = await this.getTodaysTrending();
+            await this.mongo.insertVideos(todaysTrending);
 
-        console.log(this.db.execute('select * from Title where id = 1'));
-        // this.db.stop();
+            setTimeout(() => {
+                Mailer(this.mongo.insertedVideos);
+            }, [3000]);
+        });
     }
 };
 

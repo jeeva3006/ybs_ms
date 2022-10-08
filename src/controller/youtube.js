@@ -1,7 +1,7 @@
 
 const Web = require('../web');
 const youtube = require('../core/youtube');
-const { ytBaseURL, trendingParams } = require('../constant/youtube');
+const { ytBaseURL, trendingParams } = require('../constant');
 
 class Youtube extends youtube {
     constructor() {

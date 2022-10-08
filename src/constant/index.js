@@ -1,4 +1,4 @@
-const PORT = 2022;
+// Youtube
 
 const ytBaseURL = 'https://youtube.googleapis.com/youtube/v3/videos';
 
@@ -13,7 +13,16 @@ const trendingParams = {
     key: ApiKey,
 };
 
-module.exports = { PORT, ytBaseURL, ApiKey, trendingParams };
+
+// Date and Time
+
+const apiFormat = "DD MMM YYYY hh:mm:ss a";
+
+// Database
+
+const connectionUrl = 'mongodb+srv://ybs_ms:QazWsx3%23%23@ybsms.hw71aaq.mongodb.net/?retryWrites=true&w=majority';
+
+module.exports = { ytBaseURL, ApiKey, trendingParams, apiFormat, connectionUrl };
 
 
 // export const groupBy = (key) => (array: any[]) =>
