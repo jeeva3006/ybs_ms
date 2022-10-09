@@ -9,7 +9,7 @@ class ybs extends youtube {
         super();
         this.scheduleTime = 1;
         this.mongo = new Mongo;
-        this.cronRule = `00 02 11 * * *`;
+        this.cronRule = `00 06 11 * * *`;
     }
 
     async schedule() {
