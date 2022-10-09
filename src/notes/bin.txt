@@ -1,0 +1,13 @@
+
+{{!-- "<h1>Todays trending for {{name}}</h1>" +
+"<ul>{{#kids}}<li>
+        <div><img src={{thumbnail}} /></div>{{title}} <b>by {{channelTitle}}</b>
+    </li>{{/kids}}</ul>"; --}}
+
+
+// export const groupBy = (key) => (array: any[]) =>
+//     array.reduce((obj: any, item: any) => {
+//         const value = item[key];
+//         obj[value] = (obj[value] || []).concat(item);
+//         return obj;
+//     }, {});

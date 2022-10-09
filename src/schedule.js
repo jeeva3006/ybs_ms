@@ -9,23 +9,25 @@ class ybs extends youtube {
         super();
         this.scheduleTime = 1;
         this.mongo = new Mongo;
-        this.cronRule = `15 * * * * *`;
+        this.cronRule = `23 * * * * *`;
     }
 
     async schedule() {
-        console.log("Started at", moment().format(apiFormat));
-
-        // this.mongo.setTrending();
-
-        this.mongo.start();
+        console.log("Scheduled for ", this.cronRule);
 
         schedule.scheduleJob('todays-trending', this.cronRule, async () => {
+            console.log("Schedule started at", moment().format(apiFormat));
+
+            await this.mongo.start();
             const todaysTrending = await this.getTodaysTrending();
-            await this.mongo.insertVideos(todaysTrending);
+            this.mongo.insertVideos(todaysTrending);
 
             setTimeout(() => {
                 Mailer(this.mongo.insertedVideos);
-            }, [3000]);
+
+                if (this.mongo.insertedVideos && this.mongo.insertedVideos.length === 0)
+                    console.log(`No videos found on ${moment().format('DD MMM YYYY')}!`);
+            }, [5000]);
         });
     }
 };

@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <title>ybsMs</title>
+</head>
+
+<body>
+    <h1>Todays trending for {{date}}</h1>
+    <p>
+    <ul>{{#videos}}
+        <div style="margin-bottom: 50px;">
+            <div>
+                <img style="width: 400px; height: 250px;" src={{thumbnail}} />
+            </div>
+            <span>
+                <div style="font-size: 15px; margin-bottom: 10px">
+                    <a href={{videoUrl}} target="_blank">
+                        {{title}}
+                    </a>
+                </div>
+                <div><b>{{channelTitle}}</b></div>
+            </span>
+        </div>{{/videos}}
+    </ul>
+    </p>
+</body>
+
+</html>

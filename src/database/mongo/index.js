@@ -24,24 +24,24 @@ class Mongo {
     async insertVideos(videos) {
         let insertedVideos = [];
 
-        videos.map((data, index) => {
-            this.trendingVideos.find({ videoId: data.videoId }, "title", (err, matchedResult) => {
+        videos.map((video, index) => {
+            this.trendingVideos.find({ videoId: video.videoId }, "title", (err, matchedResult) => {
                 if (err) return console.log("Error in searching video");
 
                 if (matchedResult && matchedResult.length === 0) {
-                    const newVideo = this.trendingVideos(data);
+                    const newVideo = this.trendingVideos(video);
                     newVideo.save(function (err) {
                         if (err) console.log("Error in saving new video.");
-                        else console.log(`${index} ) ${data.title}`);
+                        else console.log(`${index} ) ${video.title}`);
                     });
 
                     insertedVideos.push({
-                        title: data.title,
-                        thumbnail: data.thumbnail,
-                        publishedAt: data.publishedAt,
-                        channelTitle: data.channelTitle,
-                        videoUrl: `https://www.youtube.com/watch?v=${data.videoId}`,
-                        createdAt: data.createdAt,
+                        title: video.title,
+                        thumbnail: video.thumbnail,
+                        publishedAt: video.publishedAt,
+                        channelTitle: video.channelTitle,
+                        videoUrl: `https://www.youtube.com/watch?v=${video.videoId}`,
+                        createdAt: video.createdAt,
                     });
                 }
 
@@ -49,7 +49,6 @@ class Mongo {
             });
         });
     }
-
 }
 
 module.exports = Mongo;

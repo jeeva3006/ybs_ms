@@ -18,6 +18,7 @@ const trendingVideoSchema = new Schema({
     publishedAt: String,
     createdBy: String,
     createdAt: String,
+    isPublished: Boolean
 });
 
 module.exports = mongoose.model('TrendingVideos', trendingVideoSchema); 

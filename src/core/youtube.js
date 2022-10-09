@@ -51,6 +51,7 @@ class Youtube {
                     publishedAt,
                     createdBy: 'ybsMs',
                     createdAt: moment().format(apiFormat),
+                    isPublished: false
                 };
             });
         }

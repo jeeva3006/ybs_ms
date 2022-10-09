@@ -1,11 +1,8 @@
 // Youtube
-
 const ytBaseURL = 'https://youtube.googleapis.com/youtube/v3/videos';
-
 const ApiKey = 'AIzaSyDg08trhS610R1VeeJp4hyGMaBryjKS_3s';
-
 const trendingParams = {
-    maxResults: 5,
+    maxResults: 2,
     regionCode: 'IN',
     videoCategoryId: 10,
     chart: 'mostPopular',
@@ -15,19 +12,15 @@ const trendingParams = {
 
 
 // Date and Time
-
 const apiFormat = "DD MMM YYYY hh:mm:ss a";
 
-// Database
 
+// Database
 const connectionUrl = 'mongodb+srv://ybs_ms:QazWsx3%23%23@ybsms.hw71aaq.mongodb.net/?retryWrites=true&w=majority';
 
-module.exports = { ytBaseURL, ApiKey, trendingParams, apiFormat, connectionUrl };
+
+//Mailer
+const appPassWord = 'zqgdslkmdwbevwpt';
 
 
-// export const groupBy = (key) => (array: any[]) =>
-//     array.reduce((obj: any, item: any) => {
-//         const value = item[key];
-//         obj[value] = (obj[value] || []).concat(item);
-//         return obj;
-//     }, {});
+module.exports = { ytBaseURL, ApiKey, trendingParams, apiFormat, connectionUrl, appPassWord };

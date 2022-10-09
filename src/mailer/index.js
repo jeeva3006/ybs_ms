@@ -1,37 +1,53 @@
 const nodemailer = require("nodemailer");
+const handlebars = require('handlebars');
+const fs = require('fs');
+const path = require('path');
+const { appPassWord } = require("../constant");
+const htmlPath = path.join(__dirname, 'html.hbs');
+const moment = require('moment');
 
-async function Mailer(data) {
-
-    console.log(data);
-    let transporter = nodemailer.createTransport({
-        service: "gmail",
-        secure: true,
-        port: 587,
-        auth: {
-            user: 'styls360@gmail.com',
-            pass: 'zqgdslkmdwbevwpt',
-        },
+const readHTMLFile = function (path, callback) {
+    fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
+        if (err) {
+            callback(err);
+            console.log("Error in reading html path");
+        }
+        else callback(null, html);
     });
+};
 
+function Mailer(videos) {
+    const date = moment().format('DD MMM YYYY');
+    const data = { date, videos };
 
-    transporter.sendMail({
-        from: "styls360@gmail.com",
-        to: "jeevasubash64@gmail.com",
-        subject: "Hello ✔",
-        text: "Hello world?",
-        html: `<>
-            {{data.map(item => <div>{{item.title}}</div>)}}
-        </>`
+    readHTMLFile(htmlPath, function (err, html) {
+        if (!err) {
+            const template = handlebars.compile(html);
+            let htmlToSend = videos && videos.length > 0 ? template(data) : `<h3> No videos found</h3>`;
+
+            const transporter = nodemailer.createTransport({
+                service: "gmail",
+                secure: true,
+                port: 587,
+                auth: {
+                    user: 'styls360@gmail.com',
+                    pass: appPassWord,
+                },
+            });
+
+            transporter.sendMail({
+                from: "styls360@gmail.com",
+                to: "jeevasubash64@gmail.com",
+                subject: `${videos.length} video(s) on ${date}`,
+                text: "Hello world?",
+                html: htmlToSend
+            },
+                function (error) {
+                    if (error) console.log(error);
+                    else console.log(`Email sent for ${date}`);
+                });
+        }
     });
 }
 
 module.exports = Mailer;
-
-
-// {data.map(item =>
-//     <div>
-//         <div>{item.title}</div>
-//         <img src={item.thumbnail} alt="" />
-//         <a href={item.videoUrl} target="_blank">play video</a>
-//     </div>
-// )}
