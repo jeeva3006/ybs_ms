@@ -17,7 +17,7 @@ const readHTMLFile = function (path, callback) {
 };
 
 function Mailer(videos) {
-    const date = moment().format('DD MMM YYYY');
+    const date = moment().format('DD MMM YYYY hh:mm');
     const data = { date, videos };
 
     readHTMLFile(htmlPath, function (err, html) {
