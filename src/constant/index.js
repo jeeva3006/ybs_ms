@@ -2,7 +2,7 @@
 const ytBaseURL = 'https://youtube.googleapis.com/youtube/v3/videos';
 const ApiKey = 'AIzaSyDg08trhS610R1VeeJp4hyGMaBryjKS_3s';
 const trendingParams = {
-    maxResults: 2,
+    maxResults: 50,
     regionCode: 'IN',
     videoCategoryId: 10,
     chart: 'mostPopular',
