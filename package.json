@@ -16,8 +16,10 @@
     "handlebars": "^4.7.7",
     "moment": "^2.29.4",
     "mongoose": "^6.6.5",
+    "mysql2": "^2.3.3",
     "node-schedule": "^2.1.0",
     "nodemailer": "^6.8.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "uuid": "^9.0.0"
   }
 }

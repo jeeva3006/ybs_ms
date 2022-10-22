@@ -13,6 +13,13 @@ class Youtube extends youtube {
         const { items = [] } = await this.web.get(ytBaseURL, trendingParams);
         return this.getDetails(items);
     };
+
+    setTodaysTrending = async (db, videos) => {
+        if (videos && videos.length > 0) return this.setDetails(db, videos);
+        else console.log("No videos to set.");
+
+        return [];
+    };
 }
 
 module.exports = Youtube;

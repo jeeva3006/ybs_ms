@@ -1,52 +1,42 @@
-// const Db = require("./connection");
+const { createPool, createConnection } = require('mysql2');
+const { config } = require('../../constant');
+class Db {
+    constructor() {
+        this.pool = null;
+    }
 
-// class DbManager {
+    start() {
 
-//     constructor() {
-//     }
+        this.pool = createConnection(config);
 
-//     execute(query, params) {
-//         console.log("first");
-//         let values = params;
-//         let sql = query;
+        // this.pool = createPool(config);
+        console.log(`Database connected at ${config.host}`);
+        return this.pool;
+    };
 
-//         // if (query && params) {
-//         //     sql = this.queryFormat(query, params.identifier);
-//         //     values = params.hasOwnProperty('values') ? params.values : null;
-//         // }
+    execute(query, params) {
+        console.log(params);
+        return new Promise((resolve, reject) => {
+            this.pool.query(query, params, (err, results) => {
+                if (err) return reject(err);
+                else return resolve(results);
+            });
+        });
+    }
 
-//         console.log(sql);
+    async call(procedureName, params) {
+        const opt = (params || []).map(() => { return '?'; });
+        return await this.execute(`CALL ${procedureName.replace(';', '')}(${opt.join(',')});`, params);
+    }
 
-//         // return new Promise((resolve, reject) => {
-//         //     this.conn.query(sql, values, (err, results) => {
-//         //         if (err) return reject(err);
-//         //         else return resolve(results);
-//         //     });
-//         // });
+    end() {
+        this.pool.end(function (err) {
+            if (err) {
+                return console.log(err.message);
+            }
+            return console.log("Connection destroyed...");
+        });
+    }
+}
 
-//         this.pool.query(sql, values, (err, results) => {
-//             if (err) console.log(err);
-//             else console.log(results);
-//         });
-
-//     }
-
-//     queryFormat(query, values) {
-//         if (!values) return query;
-//         return query.replace(/\{(\w+)}/g, function (txt, key) {
-//             if (values.hasOwnProperty(key)) {
-//                 return values[key];
-//             }
-//             return txt;
-//         }.bind(this));
-//     };
-
-
-
-//     async call(procedureName, params) {
-//         const opt = (params || []).map(() => { return '?'; });
-//         return this.execute(`CALL ${procedureName.replace(';', '')}(${opt.join(',')});`, params);
-//     }
-// }
-
-// module.exports = DbManager;
+module.exports = Db;

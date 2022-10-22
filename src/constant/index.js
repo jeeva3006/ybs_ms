@@ -2,7 +2,7 @@
 const ytBaseURL = 'https://youtube.googleapis.com/youtube/v3/videos';
 const ApiKey = 'AIzaSyDg08trhS610R1VeeJp4hyGMaBryjKS_3s';
 const trendingParams = {
-    maxResults: 50,
+    maxResults: 1,
     regionCode: 'IN',
     videoCategoryId: 10,
     chart: 'mostPopular',
@@ -20,7 +20,25 @@ const connectionUrl = 'mongodb+srv://ybs_ms:QazWsx3%23%23@ybsms.hw71aaq.mongodb.
 
 
 //Mailer
-const appPassWord = 'zqgdslkmdwbevwpt';
+// const appPassWord = 'zqgdslkmdwbevwpt';
+const appPassWord = 'gdvwnoikbsruways';
 
+const config = {
+    host: 'sql.freedb.tech',
+    user: 'freedb_qwertyui',
+    password: 'p8J5C9$nWeGXdGZ',
+    port: 3306,
+    database: 'freedb_ybsms_freedb',
+    connectionLimit: 10,
+};
 
-module.exports = { ytBaseURL, ApiKey, trendingParams, apiFormat, connectionUrl, appPassWord };
+// const config = {
+//     host: '127.0.0.1',
+//     user: 'ybs',
+//     password: 123456789,
+//     port: 3307,
+//     // database: 'demo',
+//     connectionLimit: 10,
+// };
+
+module.exports = { ytBaseURL, ApiKey, trendingParams, apiFormat, connectionUrl, appPassWord, config };

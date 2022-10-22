@@ -17,8 +17,8 @@ const readHTMLFile = function (path, callback) {
 };
 
 function Mailer(videos) {
-    const data = { date, videos };
     const date = moment().format('DD MMM YYYY hh:mm');
+    const data = { date, videos };
 
     if (videos && videos.length > 0) {
         readHTMLFile(htmlPath, function (err, html) {
@@ -31,6 +31,7 @@ function Mailer(videos) {
                     secure: true,
                     port: 587,
                     auth: {
+                        // user: 'styls360@gmail.com',
                         user: 'styls360@gmail.com',
                         pass: appPassWord,
                     },
