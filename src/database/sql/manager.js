@@ -1,21 +1,17 @@
-const { createPool, createConnection } = require('mysql2');
+const { createPool } = require('mysql2');
 const { config } = require('../../constant');
+const { success, failure, warning } = require('../../helper/chalk');
 class Db {
     constructor() {
         this.pool = null;
     }
 
     start() {
-
-        this.pool = createConnection(config);
-
-        // this.pool = createPool(config);
-        console.log(`Database connected at ${config.host}`);
-        return this.pool;
+        this.pool = createPool(config);
+        return success(`Database connected at ${config.host}`);
     };
 
     execute(query, params) {
-        console.log(params);
         return new Promise((resolve, reject) => {
             this.pool.query(query, params, (err, results) => {
                 if (err) return reject(err);
@@ -32,9 +28,9 @@ class Db {
     end() {
         this.pool.end(function (err) {
             if (err) {
-                return console.log(err.message);
+                return failure(err.message);
             }
-            return console.log("Connection destroyed...");
+            return warning("Connection destroyed...");
         });
     }
 }

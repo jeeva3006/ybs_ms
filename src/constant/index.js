@@ -2,7 +2,7 @@
 const ytBaseURL = 'https://youtube.googleapis.com/youtube/v3/videos';
 const ApiKey = 'AIzaSyDg08trhS610R1VeeJp4hyGMaBryjKS_3s';
 const trendingParams = {
-    maxResults: 1,
+    maxResults: 50,
     regionCode: 'IN',
     videoCategoryId: 10,
     chart: 'mostPopular',
@@ -23,14 +23,14 @@ const connectionUrl = 'mongodb+srv://ybs_ms:QazWsx3%23%23@ybsms.hw71aaq.mongodb.
 // const appPassWord = 'zqgdslkmdwbevwpt';
 const appPassWord = 'gdvwnoikbsruways';
 
-const config = {
-    host: 'sql.freedb.tech',
-    user: 'freedb_qwertyui',
-    password: 'p8J5C9$nWeGXdGZ',
-    port: 3306,
-    database: 'freedb_ybsms_freedb',
-    connectionLimit: 10,
-};
+// const config = {
+//     host: 'sql.freedb.tech',
+//     user: 'freedb_qwertyui',
+//     password: 'p8J5C9$nWeGXdGZ',
+//     port: 3306,
+//     database: 'freedb_ybsms_freedb',
+//     connectionLimit: 10,
+// };
 
 // const config = {
 //     host: '127.0.0.1',
@@ -40,5 +40,14 @@ const config = {
 //     // database: 'demo',
 //     connectionLimit: 10,
 // };
+
+const config = {
+    host: '43.204.216.190',
+    user: 'jeeva',
+    password: 'jjstyles@',  // thala DB
+    port: 3306,
+    database: 'demo',
+    connectionLimit: 10,
+};
 
 module.exports = { ytBaseURL, ApiKey, trendingParams, apiFormat, connectionUrl, appPassWord, config };

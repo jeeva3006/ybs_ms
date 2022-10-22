@@ -2,11 +2,10 @@
 const moment = require('moment');
 const { v4: uuid } = require('uuid');
 const { apiFormat } = require('../constant');
-const Mongo = require('../database/mongo');
 const { insertVideo, getVideoIds, insertDescription } = require('../database/sql/quries.js/quries');
+const { failure, success } = require('../helper/chalk');
 class Youtube {
     constructor() {
-        this.mongo = new Mongo;
     }
 
     getDetails = result => {
@@ -64,11 +63,10 @@ class Youtube {
     setDetails = async (db, videos) => {
         let result = [];
         let videoCount = 0;
+        let existVideoCount = 0;
 
         const existingVideos = await this.db.execute(getVideoIds);
         const existingIds = existingVideos && existingVideos.length > 0 ? existingVideos.map(e => e.videoId) : [];
-
-        console.log(existingIds);
 
         for (const video of videos) {
             const { videoId, channelId, thumbnail, title, description, tags, duration, channelTitle,
@@ -109,10 +107,11 @@ class Youtube {
                 await db.execute(insertDescription, [descriptionData]);
                 await db.execute(insertVideo, [videoObj]);
 
-                console.log(`${videoCount}) ${video.title} added.`);
+                success(`${videoCount}) ${video.title} added.`);
                 result.push({ thumbnail, videoUrl: `https://www.youtube.com/watch?v=${videoId}`, title, channelTitle });
             } else {
-                console.log(`${title} already present`);
+                existVideoCount = existVideoCount + 1;
+                failure(`  ---  ${existVideoCount}) ${title}`);
             }
         }
 

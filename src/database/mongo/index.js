@@ -10,7 +10,7 @@ class Mongo {
     }
 
     async start() {
-        mongoose.connect(connectionUrl, {
+        await mongoose.connect(connectionUrl, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
@@ -18,6 +18,17 @@ class Mongo {
         this.db = mongoose.connection;
         this.db.on("connected", function () {
             console.log("Database connected successfully!");
+        });
+    }
+
+    async getVideos() {
+        return new Promise((resolve, reject) => {
+            this.trendingVideos.find(
+                {}, (err, matchedResult) => {
+                    if (err) return reject(err);
+                    else return resolve(matchedResult);
+                }
+            );
         });
     }
 

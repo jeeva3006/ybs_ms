@@ -2,7 +2,7 @@
 const Web = require('../web');
 const youtube = require('../core/youtube');
 const { ytBaseURL, trendingParams } = require('../constant');
-
+const { failure } = require('../helper/chalk');
 class Youtube extends youtube {
     constructor() {
         super();
@@ -16,7 +16,7 @@ class Youtube extends youtube {
 
     setTodaysTrending = async (db, videos) => {
         if (videos && videos.length > 0) return this.setDetails(db, videos);
-        else console.log("No videos to set.");
+        else failure("No videos to set.");
 
         return [];
     };

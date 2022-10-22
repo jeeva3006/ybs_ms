@@ -20,37 +20,34 @@ function Mailer(videos) {
     const date = moment().format('DD MMM YYYY hh:mm');
     const data = { date, videos };
 
-    if (videos && videos.length > 0) {
-        readHTMLFile(htmlPath, function (err, html) {
-            if (!err) {
-                const template = handlebars.compile(html);
-                let htmlToSend = videos && videos.length > 0 ? template(data) : `<h3> No videos found</h3>`;
+    readHTMLFile(htmlPath, function (err, html) {
+        if (!err) {
+            const template = handlebars.compile(html);
+            let htmlToSend = videos && videos.length > 0 ? template(data) : `<h3> No videos found</h3>`;
 
-                const transporter = nodemailer.createTransport({
-                    service: "gmail",
-                    secure: true,
-                    port: 587,
-                    auth: {
-                        // user: 'styls360@gmail.com',
-                        user: 'styls360@gmail.com',
-                        pass: appPassWord,
-                    },
-                });
-
-                transporter.sendMail({
-                    from: "styls360@gmail.com",
-                    to: "jeevasubash64@gmail.com",
-                    subject: `${videos.length} video(s) on ${date}`,
-                    text: "Hello world?",
-                    html: htmlToSend
+            const transporter = nodemailer.createTransport({
+                service: "gmail",
+                secure: true,
+                port: 587,
+                auth: {
+                    user: 'styls360@gmail.com',
+                    pass: appPassWord,
                 },
-                    function (error) {
-                        if (error) console.log(error);
-                        else console.log(`Email sent for ${date}`);
-                    });
-            }
-        });
-    }
+            });
+
+            transporter.sendMail({
+                from: "styls360@gmail.com",
+                to: "jeevasubash64@gmail.com",
+                subject: `${videos.length} video(s) on ${date}`,
+                text: "Hello world?",
+                html: htmlToSend
+            },
+                function (error) {
+                    if (error) console.log(error);
+                    else console.log(`Email sent for ${date}`);
+                });
+        }
+    });
 }
 
 module.exports = Mailer;
