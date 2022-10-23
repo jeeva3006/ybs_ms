@@ -9,7 +9,7 @@ class ybs extends youtube {
     constructor() {
         super();
         this.db = new Db;
-        this.cronRule = `00 10 * * * *`;
+        this.cronRule = `00 02,08,14,20 * * * *`;
     }
 
     async schedule() {
