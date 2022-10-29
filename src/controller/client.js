@@ -15,4 +15,15 @@ router.get('/videos', async (req, res) => {
     }
 });
 
+router.put('/videos', async (req, res) => {
+    try {
+        const updateVideos = await db.execute(query.setIsPublished, req.body.id);
+        const setPostDetails = await db.execute(query.setPostDetails, [Object.values(req.body)]);
+
+        res.send({ updateVideos, setPostDetails });
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 module.exports = router;

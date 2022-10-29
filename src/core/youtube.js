@@ -111,7 +111,7 @@ class Youtube {
                 result.push({ thumbnail, videoUrl: `https://www.youtube.com/watch?v=${videoId}`, title, channelTitle });
             } else {
                 existVideoCount = existVideoCount + 1;
-                failure(`  ---  ${existVideoCount}) ${title}`);
+                failure(`${existVideoCount}) ${title}`);
             }
         }
 
