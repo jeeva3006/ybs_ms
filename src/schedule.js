@@ -27,6 +27,8 @@ class ybs extends youtube {
 
             setTimeout(() => this.db.end(), [10000]);
         });
+
+        return this.cronRule;
     }
 };
 

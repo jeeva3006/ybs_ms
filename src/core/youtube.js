@@ -2,7 +2,7 @@
 const moment = require('moment');
 const { v4: uuid } = require('uuid');
 const { apiFormat } = require('../constant');
-const { insertVideo, getVideoIds, insertDescription } = require('../database/sql/quries.js/quries');
+const { insertVideo, getVideoIds, insertDescription } = require('../database/sql/quries/quries');
 const { failure, success } = require('../helper/chalk');
 class Youtube {
     constructor() {
