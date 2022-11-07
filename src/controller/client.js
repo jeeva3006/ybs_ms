@@ -15,6 +15,21 @@ router.get('/videos', async (req, res) => {
     }
 });
 
+router.get('/video/count', async (req, res) => {
+    try {
+        const published = await db.execute(query.getPublishedCount);
+        const pending = await db.execute(query.getPendingCount);
+
+        const key = 'videoId';
+        const publishedCount = [...new Map(published.map(item => [item[key], item])).values()].length;
+        const pendingCount = [...new Map(pending.map(item => [item[key], item])).values()].length;
+
+        res.send({ publishedCount, pendingCount });
+    } catch (error) {
+        console.log("error");
+    }
+});
+
 router.put('/videos', async (req, res) => {
     try {
         const updateVideos = await db.execute(query.setIsPublished, req.body.id);
