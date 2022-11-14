@@ -15,20 +15,16 @@ class ybs extends youtube {
     async schedule() {
         info(`Listening at, ${this.cronRule}`);
 
-        schedule.scheduleJob('todays-trending', this.cronRule, async () => {
-            this.db.start();
-            info(`Schedule started at ${moment().format(apiFormat)}`);
+        this.db.start();
+        info(`Schedule started at ${moment().format(apiFormat)}`);
 
-            const todaysTrending = await this.getTodaysTrending();
-            const insertVideos = await this.setTodaysTrending(this.db, todaysTrending);
+        const todaysTrending = await this.getTodaysTrending();
+        const insertVideos = await this.setTodaysTrending(this.db, todaysTrending);
 
-            Mailer(insertVideos);
-            if (insertVideos && insertVideos.length === 0) failure(`No videos found on ${moment().format('DD MMM YYYY')}!`);
+        Mailer(insertVideos);
+        if (insertVideos && insertVideos.length === 0) failure(`No videos found on ${moment().format('DD MMM YYYY')}!`);
 
-            setTimeout(() => this.db.end(), [10000]);
-        });
-
-        return this.cronRule;
+        setTimeout(() => this.db.end(), [10000]);
     }
 };
 
