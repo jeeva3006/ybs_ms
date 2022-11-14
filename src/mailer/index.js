@@ -39,7 +39,7 @@ function Mailer(videos) {
                 transporter.sendMail({
                     from: "styls360@gmail.com",
                     to: "jeevasubash64@gmail.com",
-                    subject: `${videos.length} video(s) on ${date}`,
+                    subject: `${videos.length} video(s) on ${date} function`,
                     text: "Hello world?",
                     html: htmlToSend
                 },
