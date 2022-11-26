@@ -2,7 +2,7 @@
 const moment = require('moment');
 const { v4: uuid } = require('uuid');
 const { apiFormat } = require('../constant');
-const { insertVideo, getVideoIds, insertDescription } = require('../database/sql/quries/quries');
+const { insertVideo, getVideoIds, insertDescription, deleteTrendingTable, setTrending } = require('../database/sql/quries/quries');
 const { failure, success } = require('../helper/chalk');
 class Youtube {
     constructor() {
@@ -66,6 +66,8 @@ class Youtube {
         let existVideoCount = 0;
 
         const existingVideos = await this.db.execute(getVideoIds);
+        await this.db.execute(deleteTrendingTable);
+
         const existingIds = existingVideos && existingVideos.length > 0 ? existingVideos.map(e => e.videoId) : [];
 
         for (const video of videos) {
@@ -76,8 +78,10 @@ class Youtube {
 
             videoCount = videoCount + 1;
 
+            const id = uuid();
+            await this.db.execute(setTrending, [[id, videoId, moment.utc().format()]]);
+
             if (existingIds.indexOf(videoId) < 0) {
-                const id = uuid();
 
                 const videoObj = [
                     id,

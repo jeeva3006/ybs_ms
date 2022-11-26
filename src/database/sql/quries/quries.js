@@ -6,5 +6,10 @@ const setPostDetails = `insert into postDetails values (?);`;
 const setIsPublished = `update videos set isPublished = true where id = ?;`;
 const getPublishedCount = `select videoId from videos where isPublished = true;`;
 const getPendingCount = `select videoId from videos where isPublished = false;`;
+const deleteTrendingTable = `delete FROM trending_videos;`;
+const setTrending = 'insert into trending_videos values (?);';
 
-module.exports = { insertVideo, getVideoIds, insertDescription, getVideosToPost, setPostDetails, setIsPublished, getPendingCount, getPublishedCount };
+module.exports = {
+    insertVideo, getVideoIds, insertDescription, getVideosToPost, setPostDetails, setIsPublished, getPendingCount,
+    getPublishedCount, deleteTrendingTable, setTrending
+};
